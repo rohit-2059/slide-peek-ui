@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { CategorySidebar } from "@/components/CategorySidebar";
 import { ProductGrid } from "@/components/ProductGrid";
 import { ChatSidebar } from "@/components/ChatSidebar";
+import { DummyChatbot } from "@/components/chatbot/DummyChatbot";
 
 const Index = () => {
   const [isChatOpen, setIsChatOpen] = useState(true);
@@ -29,7 +30,9 @@ const Index = () => {
       </div>
 
       {/* Chat Sidebar */}
-      <ChatSidebar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      <ChatSidebar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)}>
+        <DummyChatbot />
+      </ChatSidebar>
     </div>
   );
 };

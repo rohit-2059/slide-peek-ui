@@ -2,13 +2,15 @@ import { X, Bot, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import type { ReactNode } from "react";
 
 interface ChatSidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  children?: ReactNode;
 }
 
-export const ChatSidebar = ({ isOpen, onClose }: ChatSidebarProps) => {
+export const ChatSidebar = ({ isOpen, onClose, children }: ChatSidebarProps) => {
   return (
     <div
       className={`fixed right-0 top-0 h-full bg-white border-l border-grocery-gray shadow-lg transition-all duration-300 ease-out z-40 ${
@@ -35,41 +37,45 @@ export const ChatSidebar = ({ isOpen, onClose }: ChatSidebarProps) => {
 
           {/* Chat Messages */}
           <ScrollArea className="flex-1 p-4">
-            <div className="space-y-4">
-              {/* Welcome Message */}
-              <div className="flex items-start gap-3">
-                <div className="p-2 bg-grocery-light-gray rounded-full">
-                  <Bot className="h-4 w-4 text-grocery-text" />
+            {typeof children !== "undefined" ? (
+              <div className="h-full">{children}</div>
+            ) : (
+              <div className="space-y-4">
+                {/* Welcome Message */}
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-grocery-light-gray rounded-full">
+                    <Bot className="h-4 w-4 text-grocery-text" />
+                  </div>
+                  <div className="bg-grocery-light-gray rounded-lg p-3 max-w-[80%]">
+                    <p className="text-sm text-grocery-text">
+                      Hi! I'm your shopping assistant. I can help you find products, check delivery times, and answer any questions about your order!
+                    </p>
+                  </div>
                 </div>
-                <div className="bg-grocery-light-gray rounded-lg p-3 max-w-[80%]">
-                  <p className="text-sm text-grocery-text">
-                    Hi! I'm your shopping assistant. I can help you find products, check delivery times, and answer any questions about your order!
-                  </p>
-                </div>
-              </div>
 
-              {/* Suggested Actions */}
-              <div className="space-y-2">
-                <p className="text-xs text-muted-foreground font-medium">Quick Actions:</p>
-                <div className="grid grid-cols-1 gap-2">
-                  {[
-                    "Find organic vegetables",
-                    "Check dairy products",
-                    "Show breakfast cereals",
-                    "Track my order"
-                  ].map((action, index) => (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      size="sm"
-                      className="justify-start text-left h-auto p-2 text-xs"
-                    >
-                      {action}
-                    </Button>
-                  ))}
+                {/* Suggested Actions */}
+                <div className="space-y-2">
+                  <p className="text-xs text-muted-foreground font-medium">Quick Actions:</p>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Find organic vegetables",
+                      "Check dairy products",
+                      "Show breakfast cereals",
+                      "Track my order",
+                    ].map((action, index) => (
+                      <Button
+                        key={index}
+                        variant="outline"
+                        size="sm"
+                        className="justify-start text-left h-auto p-2 text-xs"
+                      >
+                        {action}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </ScrollArea>
 
           {/* Chat Input */}
